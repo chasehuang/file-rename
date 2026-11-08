@@ -4,16 +4,16 @@
 
 不想再對著 `IMG_1234.jpg` 想名字？File Rename 可以翻譯現有檔名，也能看圖片或影片，幫你取一個容易辨認的名字。原檔名可以是中文、日文或其他語言；這一版產生的新名字是英文。
 
-反白幾個字 → 點圖示 → 看建議 → 按「套用」。 你可以先修改建議，按下套用才會更名。
+反白幾個字 → 點圖示 → 看建議 → 按「Apply（套用）」。 你可以先修改建議，按下套用才會更名。
 
 ## 兩個圖示，自己選怎麼取名
 
 | 圖示 | 功能 | 例子 |
 | --- | --- | --- |
-| 語言：「譯檔名」 | 把原本的名稱翻成英文。 | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
-| 掃描：「看內容命名」 | 看圖片或影片裡的內容，再取名字。 | 野餐照片 → `picnic-photo.jpg`；料理教學影片 → `cooking-tutorial.mp4` |
+| 語言：Translate Filename（翻譯檔名） | 把原本的名稱翻成英文。 | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
+| 掃描：Name from Content（看內容命名） | 看圖片或影片裡的內容，再取名字。 | 野餐照片 → `picnic-photo.jpg`；料理教學影片 → `cooking-tutorial.mp4` |
 
-「看內容命名」只能在 Finder 裡使用。目前外掛的按鈕、預覽和提示都是繁體中文。
+Name from Content（看內容命名）只能在 Finder 裡使用。外掛介面統一使用英文，這份繁體中文說明會對照畫面上的名稱。
 
 建議名稱使用 2～4 個單字，並以 32 個字元內為目標，保留主題和素材類型，例如 `command-key-icon.webp`。不必要的顏色、線條樣式和背景細節會省略。翻譯時仍以原名稱的意思為準，不會猜測檔案內容；套用前也可以自己修改、加上更多單字。
 
@@ -30,8 +30,6 @@
 
 [下載 FileRename.popclipextz 安裝檔](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz) · [查看更新說明](https://github.com/chasehuang/file-rename/releases/latest)
 
-目前 repo 維持私人，請登入有存取權的 GitHub 帳號才能下載。之後公開 repo，這些連結可以繼續使用。
-
 下載後：
 
 1. 雙擊安裝檔，依 PopClip 的提示安裝。
@@ -47,7 +45,7 @@ Key 會存進這台 Mac 的鑰匙圈。如果想使用本機 `.env` 檔案，需
 1. 選取一個檔案，按 Return，讓檔名變成可以編輯的狀態。
 2. 用滑鼠反白檔名的任意一段，叫出 PopClip。
 3. 點語言圖示翻譯檔名，或點掃描圖示看內容取名。
-4. 看過建議後，可以修改，再按「套用」。按「取消」就不改名。
+4. 看過建議後，可以修改，再按「Apply（套用）」。按「Cancel（取消）」就不改名。
 
 例如 `週末野餐照片.jpg`，只反白「野餐」就可以。外掛仍會翻譯完整名稱，變成像 `weekend-picnic-photo.jpg` 這樣的檔名，不需要每次都反白全部。日文也可以，例如 `週末のピクニック.jpg` → `weekend-picnic.jpg`。
 
@@ -59,7 +57,7 @@ Key 會存進這台 Mac 的鑰匙圈。如果想使用本機 `.env` 檔案，需
 
 在其他 App 反白一段文字，點語言圖示，就能產生英文檔名。
 
-按下「套用」後，如果原本的位置可以輸入文字，就會直接換成英文檔名；如果不能輸入，就會複製到剪貼簿，讓你自行貼上。預覽會告訴你接下來會做哪一種操作。
+按下「Apply（套用）」後，如果原本的位置可以輸入文字，就會直接換成英文檔名；如果不能輸入，就會複製到剪貼簿，讓你自行貼上。預覽會告訴你接下來會做哪一種操作。
 
 ## 哪些檔案可以用？
 
@@ -84,7 +82,7 @@ Gemini 需要連網才能取名。 讀取檔案、處理圖片、取出影片畫
 
 外掛會在你的 Mac 上另外製作一份用來上傳的圖片，處理完就刪除這份本機副本。如果無法清除附加資訊，就停止上傳。圖片上直接看得見的人臉、地址或文字仍會傳給 Gemini，不會自動遮住。
 
-點下圖示時，資料就會先傳給 Google，之後才出現建議。按「取消」可以取消改名，但不能撤回已傳送的資料。
+點下圖示時，資料就會先傳給 Google，之後才出現建議。按「Cancel（取消）」可以取消改名，但不能撤回已傳送的資料。
 
 使用 Gemini 3.1 Flash-Lite 會消耗你 Google 帳號的使用額度，可能產生費用。費用與資料使用方式請看 Google 的[價格說明](https://ai.google.dev/gemini-api/docs/pricing)和[服務條款](https://ai.google.dev/gemini-api/terms)。
 
@@ -96,15 +94,13 @@ Gemini 需要連網才能取名。 讀取檔案、處理圖片、取出影片畫
 | 提示找不到 Key | 在 PopClip 的「File Rename」設定貼上自己的 Gemini API Key。 |
 | 無法取得 Finder 裡的檔案 | 確認只選一個檔案，並允許 PopClip 控制 Finder。 |
 | 提示缺少 Python 或影片工具 | 依[工具安裝方式](CONTRIBUTING.md#setup-tools)補上。 |
-| 圖片太大或無法處理 | 另存一張較小的 PNG 或 JPG 再試，或改用「譯檔名」。 |
+| 圖片太大或無法處理 | 另存一張較小的 PNG 或 JPG 再試，或改用 Translate Filename（翻譯檔名）。 |
 | 提示檔案已變更或名稱重複 | 關閉預覽，重新選取檔案再試。 |
 | 無法產生建議 | 檢查網路、Gemini Key 和 Google 帳號的使用額度。 |
 
 ## 專案資訊
 
-這份開源版本已做程式測試，正式發布前還需要在 PopClip 裡完整走過一次改名流程。
-
-開發、測試、工具安裝和進階設定請看 [CONTRIBUTING.md](CONTRIBUTING.md)，更新記錄請看 [CHANGELOG.md](CHANGELOG.md)。外掛程式採用 [MIT 授權](LICENSE)，不是 PopClip 或 Google 官方製作的外掛。
+開發、工具安裝和進階設定請看 [CONTRIBUTING.md](CONTRIBUTING.md)，另有[測試狀況](CONTRIBUTING.md#validation-status)與[更新記錄](CHANGELOG.md)。外掛程式採用 [MIT 授權](LICENSE)，不是 PopClip 或 Google 官方製作的外掛。
 
 圖示來自 [Lucide](https://lucide.dev/)，依 ISC 授權使用，並調整線條粗細。完整內容見[圖示授權全文](source/FileRename.popclipext/icons/LICENSE)。
 

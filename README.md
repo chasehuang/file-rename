@@ -6,10 +6,10 @@ Rename files with PopClip by translating their current names or looking at what'
 
 | Icon | What it does | Example |
 | --- | --- | --- |
-| Language — 譯檔名 | Translates the filename or words you select. | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
-| Scan — 看內容命名 | Suggests a name based on a picture or video. | `picnic-photo.jpg` or `cooking-tutorial.mp4` |
+| Language — Translate Filename | Translates the filename or words you select. | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
+| Scan — Name from Content | Suggests a name based on a picture or video. | `picnic-photo.jpg` or `cooking-tutorial.mp4` |
 
-Highlight a few words → click an icon → see the suggestion → Apply. You can edit the suggested name before applying it. The scan icon is available only in Finder. The buttons and messages are currently in Traditional Chinese: 套用 means Apply, and 取消 means Cancel.
+Highlight a few words → click an icon → see the suggestion → Apply. You can edit the suggested name before applying it. The scan icon is available only in Finder. The extension interface is in English, with guides in English and Traditional Chinese.
 
 Suggested names use 2–4 words and aim for no more than 32 characters, keeping the main subject and asset type, such as `command-key-icon.webp`. Unnecessary color, line-style and background details are left out. Translation keeps the source meaning; it does not guess what is inside the file. You can still edit the suggestion and add more words before applying it.
 
@@ -28,8 +28,6 @@ The extension does not install these tools for you. For help, see [setup instruc
 
 [Download FileRename.popclipextz](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz) · [Release notes](https://github.com/chasehuang/file-rename/releases/latest)
 
-While this repository is private, sign in to a GitHub account with access to download it. These links will stay the same if the repository becomes public.
-
 1. Double-click `FileRename.popclipextz`.
 2. Confirm PopClip's prompt to install the unsigned extension.
 3. Open File Rename in PopClip's extension settings and enter your Gemini API Key.
@@ -43,7 +41,7 @@ If you downloaded the source code instead, see [how to make the install file](CO
 1. Select one file and press Return to edit its name.
 2. Use the mouse to highlight any part of the name. You can leave out the file extension, such as `.jpg`.
 3. Click the language icon to translate the name, or the scan icon to name a picture or video from its content.
-4. Read the suggested name, edit it if you like, and click 套用 (Apply). Click 取消 (Cancel) to leave the name unchanged.
+4. Read the suggested name, edit it if you like, and click Apply. Click Cancel to leave the name unchanged.
 
 For example, highlight just `野餐` in `週末野餐照片.jpg`. The extension still translates the whole name and can suggest `weekend-picnic-photo.jpg`. Japanese names work too: `週末のピクニック.jpg` can become `weekend-picnic.jpg`.
 
@@ -92,7 +90,7 @@ Using Gemini 3.1 Flash-Lite counts toward your Google account's allowance and ma
 
 ## More information
 
-Tool setup, development and local settings are covered in [CONTRIBUTING.md](CONTRIBUTING.md). Changes are listed in [CHANGELOG.md](CHANGELOG.md). This version still needs a complete check in Finder, from selecting a name through applying the suggestion, before a public release.
+Tool setup, development and local settings are covered in [CONTRIBUTING.md](CONTRIBUTING.md), along with the [validation status](CONTRIBUTING.md#validation-status). Changes are listed in [CHANGELOG.md](CHANGELOG.md).
 
 The extension code is available under the [MIT License](LICENSE). This is an independent extension, not an official PopClip or Google product.
 

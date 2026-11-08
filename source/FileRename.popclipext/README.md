@@ -1,11 +1,11 @@
 # File Rename
 
-Rename files by translating their current names or looking at a picture or video. Original names can be in Chinese, Japanese or other languages; this version suggests English names. Edit the suggestion, then click 套用 (Apply) to rename. 取消 (Cancel) leaves the name unchanged. The buttons and messages are currently in Traditional Chinese.
+Rename files by translating their current names or looking at a picture or video. Original names can be in Chinese, Japanese or other languages; this version suggests English names. Edit the suggestion, then click Apply to rename. Cancel leaves the name unchanged. The extension interface is in English, with guides in English and Traditional Chinese.
 
 | Icon | What it does | Example |
 | --- | --- | --- |
-| Language — 譯檔名 | Translates a filename or selected words. | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
-| Scan — 看內容命名 | Names a picture or video from its content. | `picnic-photo.jpg`, `cooking-tutorial.mp4` |
+| Language — Translate Filename | Translates a filename or selected words. | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
+| Scan — Name from Content | Names a picture or video from its content. | `picnic-photo.jpg`, `cooking-tutorial.mp4` |
 
 Suggestions use 2–4 words and aim for no more than 32 characters, keeping the main subject and asset type, such as `command-key-icon.webp`. Unnecessary color, line-style and background details are left out. Translation keeps the source meaning without guessing the file's contents. You can edit the suggestion and add more words before applying it.
 
@@ -15,7 +15,7 @@ You need a Mac with PopClip 2026.8.1 or later, your own Gemini API Key (Google's
 
 [Download FileRename.popclipextz](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz) · [Release notes](https://github.com/chasehuang/file-rename/releases/latest)
 
-While the repository is private, sign in to a GitHub account with access to download it. These links will stay the same if the repository becomes public. Double-click the downloaded file, confirm PopClip's unsigned-extension prompt, and enter your Gemini API Key in the File Rename extension settings.
+Double-click the downloaded file, confirm PopClip's unsigned-extension prompt, and enter your Gemini API Key in the File Rename extension settings.
 
 PopClip saves the key in your Mac's Keychain. To use a local `.env` file instead, leave the key field blank and enter the file's path in .env path (optional). There is no default file location; leaving both fields blank asks you to set up a key. The optional file method is explained in CONTRIBUTING.md in the source download.
 
@@ -42,12 +42,14 @@ If the extension cannot remove the picture's extra recorded details, it stops th
 
 ## 繁體中文
 
-翻譯原有檔名，或根據圖片與影片內容，替檔案取一個清楚的名字。原檔名可以是中文、日文或其他語言；這一版產生的新名字是英文。可以先修改建議，按「套用」才更名；按「取消」則保留原名。
+外掛介面統一使用英文；以下提供畫面名稱的中文對照。
+
+翻譯原有檔名，或根據圖片與影片內容，替檔案取一個清楚的名字。原檔名可以是中文、日文或其他語言；這一版產生的新名字是英文。可以先修改建議，按「Apply（套用）」才更名；按「Cancel（取消）」則保留原名。
 
 | 圖示 | 用途 | 例子 |
 | --- | --- | --- |
-| 語言 — 譯檔名 | 翻譯檔名或反白文字。 | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
-| 掃描 — 看內容命名 | 根據圖片或影片內容命名。 | `picnic-photo.jpg`、`cooking-tutorial.mp4` |
+| 語言 — Translate Filename（翻譯檔名） | 翻譯檔名或反白文字。 | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
+| 掃描 — Name from Content（看內容命名） | 根據圖片或影片內容命名。 | `picnic-photo.jpg`、`cooking-tutorial.mp4` |
 
 建議名稱使用 2～4 個單字，並以 32 個字元內為目標，保留主題和素材類型，例如 `command-key-icon.webp`。不必要的顏色、線條樣式和背景細節會省略。翻譯時仍以原名稱的意思為準，不會猜測檔案內容；套用前可以自己修改、加上更多單字。
 
@@ -55,16 +57,16 @@ If the extension cannot remove the picture's extra recorded details, it stops th
 
 [下載 FileRename.popclipextz 安裝檔](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz) · [查看更新說明](https://github.com/chasehuang/file-rename/releases/latest)
 
-目前 repo 維持私人，請登入有存取權的 GitHub 帳號才能下載。之後公開 repo，這些連結可以繼續使用。下載後，雙擊檔案、確認 PopClip 的未簽署外掛提示，再到「File Rename」外掛設定填入自己的 Gemini API Key。
+下載後，雙擊檔案、確認 PopClip 的未簽署外掛提示，再到「File Rename」外掛設定填入自己的 Gemini API Key。
 
-Key 會存進這台 Mac 的鑰匙圈。如果想使用本機 `.env` 檔案，請將 Key 欄位留白，並在「.env 路徑（選填）」填入檔案的位置。外掛不會自行尋找檔案；兩個欄位都留白時，會提醒你先設定 Key。詳細做法見原始碼下載包裡的 CONTRIBUTING.md。
+Key 會存進這台 Mac 的鑰匙圈。如果想使用本機 `.env` 檔案，請將 Key 欄位留白，並在「.env path (optional)」填入檔案的位置。外掛不會自行尋找檔案；兩個欄位都留白時，會提醒你先設定 Key。詳細做法見原始碼下載包裡的 CONTRIBUTING.md。
 
 在 Finder 使用：
 
 1. 選一個檔案，按 Return。
 2. 用滑鼠反白檔名的任意一段。
 3. 點翻譯或掃描圖示。
-4. 視需要修改建議，再按「套用」或「取消」。
+4. 視需要修改建議，再按「Apply（套用）」或「Cancel（取消）」。
 
 例如只反白 `週末野餐照片.jpg` 裡的「野餐」，仍會翻譯完整檔名，建議為 `weekend-picnic-photo.jpg`。日文也可以，例如 `週末のピクニック.jpg` → `weekend-picnic.jpg`。只按 Return 不會叫出 PopClip，副檔名會保留。在其他 App 反白文字後，點翻譯圖示；確認後會取代選取文字，不能貼上的地方則先複製，讓你自行貼上。
 
@@ -80,7 +82,7 @@ Key 會存進這台 Mac 的鑰匙圈。如果想使用本機 `.env` 檔案，請
 
 如果無法移除圖片的附加資訊，外掛就停止上傳。畫面中看得見的人臉、文字與位置標示仍會送出。使用 Gemini 3.1 Flash-Lite 會消耗自己的 Google 額度，可能產生費用；請見上方 Google 價格說明與條款連結。
 
-This version still needs a full Finder check before public release. / 這一版公開前，仍需完整驗證一次 Finder 選檔到套用更名的流程。
+Validation status is documented in CONTRIBUTING.md in the source download. / 測試狀況記錄在原始碼下載包的 CONTRIBUTING.md。
 
 Extension code: MIT License. / 外掛程式：MIT 授權。
 

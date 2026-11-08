@@ -35,40 +35,40 @@ print(key, end='')
 `;
 
 const MESSAGES = {
-  missing_python: '找不到 Python 3.9 以上版本。Finder 命名與 .env 模式需要先安裝 Python 3。',
-  missing_key: '找不到 Gemini API Key，請在外掛設定填入；若使用 .env，請指定檔案路徑並確認含有 GEMINI_API_KEY_POP。',
-  invalid_key: 'Gemini API Key 格式不正確，請重新貼上完整金鑰，不要包含空白或換行。',
-  invalid_env_path: '.env 路徑請填絕對路徑或以 ~/ 開頭；也可以直接在外掛設定填入 Gemini API Key。',
-  selection: '請在 Finder 選一個檔案，按 Return，再用滑鼠反白檔名中的一段。',
-  permission: '內容命名需要允許 PopClip 控制 Finder，才能讀取選取檔案。',
-  finder: '目前無法取得 Finder 選取檔案，請重新選取後再試。',
-  mismatch: '選取文字不在目前的 Finder 檔名內，請反白該檔名中的一段。',
-  selection_changed: 'Finder 已選到其他檔案，這次沒有改名，請重新選取。',
-  symlink: '目前不處理符號連結，請選取原始檔案。',
-  not_regular_file: '目前只處理單一檔案，不更改資料夾。',
-  not_found: '檔案已移動或不存在，請重新選取。',
-  changed: '檔案已變更，這次沒有改名，請重新選取。',
-  collision: '這個檔名已被使用，這次沒有改名，請重新產生建議。',
-  nochange: '檔名已經是這個名稱。',
-  image_too_large: '圖片超過 14 MiB，請先縮小圖片再試。',
-  image_type_mismatch: '圖片內容與副檔名不符，這次沒有改名。',
-  image_sanitization_failed: '無法安全清除圖片中繼資料，這次沒有上傳圖片或更名。',
-  image_timeout: '圖片隱私處理逾時，這次沒有上傳圖片或更名。',
-  image_cancelled: '已取消圖片隱私處理，沒有上傳圖片或更名。',
-  unsupported_content: '內容命名支援 PNG、JPEG、WebP 圖片，以及 MP4、MOV、M4V、WebM、MKV 影片。',
-  missing_video_tools: '找不到 ffmpeg 或 ffprobe，暫時無法擷取影片畫面。',
-  unsupported_video: '這個影片格式目前無法讀取，請使用 MP4、MOV、M4V、WebM 或 MKV。',
-  invalid_video: '無法取得可辨識的影片畫面，這次沒有改名。',
-  video_timeout: '擷取影片畫面逾時，這次沒有改名，請稍後再試。',
-  video_cancelled: '已取消影片命名，沒有更改檔案。',
-  video_frames_too_large: '擷取的影片畫面過大，這次沒有改名。',
-  permission_denied: '目前沒有讀取或更名此檔案的權限。',
-  extension_mismatch: '請保留原副檔名，只修改前面的英文名稱。',
-  invalid_filename: '請使用小寫英文、數字和連字號，名稱限 64 字元。',
-  invalid_slug: '這次沒有取得合適的英文檔名，請再試一次。',
-  incomplete: '這次沒有取得完整檔名，請再試一次。',
-  native_dialog: '無法開啟檔名確認視窗，這次沒有改名。',
-  io_error: '無法完成檔案操作，請重新選取後再試。'
+  missing_python: 'Python 3.9 or later is required for Finder renaming and .env files. Please install Python 3.',
+  missing_key: 'No Gemini API Key found. Enter it in the extension settings, or choose a .env file containing GEMINI_API_KEY_POP.',
+  invalid_key: 'Invalid Gemini API Key format. Paste the complete key without spaces or line breaks.',
+  invalid_env_path: 'Enter a full .env path or one starting with ~/. You can also enter your Gemini API Key directly in the extension settings.',
+  selection: 'Select one file in Finder, press Return, then highlight part of its name with the mouse.',
+  permission: 'Allow PopClip to control Finder so it can read the selected file.',
+  finder: 'Cannot read the Finder selection. Select the file again and retry.',
+  mismatch: 'The selected text is not part of the selected Finder filename. Highlight part of that filename.',
+  selection_changed: 'The Finder selection changed. No file was renamed. Select the file again.',
+  symlink: 'Symbolic links are not supported. Select the original file.',
+  not_regular_file: 'Select a single file. Folders are not supported.',
+  not_found: 'The file was moved or no longer exists. Select it again.',
+  changed: 'The file changed. No file was renamed. Select it again.',
+  collision: 'This filename is already in use. No file was renamed. Generate another suggestion.',
+  nochange: 'The file already has this name.',
+  image_too_large: 'The image exceeds 14 MiB. Reduce its size and retry.',
+  image_type_mismatch: 'The image format does not match its extension. No file was renamed.',
+  image_sanitization_failed: 'Could not remove hidden image details safely. No image was uploaded or file renamed.',
+  image_timeout: 'Preparing the image for upload timed out. No image was uploaded or file renamed.',
+  image_cancelled: 'Image preparation was cancelled. No image was uploaded or file renamed.',
+  unsupported_content: 'Content naming supports PNG, JPEG and WebP images, and MP4, MOV, M4V, WebM and MKV videos.',
+  missing_video_tools: 'ffmpeg or ffprobe was not found. Install them to extract video frames.',
+  unsupported_video: 'Cannot read this video format. Use MP4, MOV, M4V, WebM or MKV.',
+  invalid_video: 'Could not extract usable video frames. No file was renamed.',
+  video_timeout: 'Extracting video frames timed out. No file was renamed. Please retry later.',
+  video_cancelled: 'Video naming was cancelled. No file was changed.',
+  video_frames_too_large: 'The extracted video frames are too large. No file was renamed.',
+  permission_denied: 'Permission is needed to read or rename this file.',
+  extension_mismatch: 'Keep the original file extension and edit only the name before it.',
+  invalid_filename: 'Use lowercase English letters, numbers and hyphens. Keep the name within 64 characters.',
+  invalid_slug: 'Could not generate a valid English filename. Please try again.',
+  incomplete: 'The filename suggestion was incomplete. Please try again.',
+  native_dialog: 'Could not open the filename preview. No file was renamed.',
+  io_error: 'Could not complete the file operation. Select the file again and retry.'
 };
 
 function fail(code) { const error = new Error(code); error.localCode = code; throw error; }
@@ -200,13 +200,13 @@ function validateFilename(name, extension) {
 }
 
 async function confirmName(original, proposed, mode, basis) {
-  const action = mode === 'file' ? '套用後會更改這個檔案的名稱。' :
-    mode === 'paste' ? '套用後會以英文檔名取代選取文字。' : '套用後會將英文檔名複製到剪貼簿。';
+  const action = mode === 'file' ? 'Apply will rename this file.' :
+    mode === 'paste' ? 'Apply will replace the selected text with the English filename.' : 'Apply will copy the English filename to the clipboard.';
   let result;
   try {
     result = await popclip.runShellScriptFile('confirm.sh', {
       interpreter: '/bin/zsh', shellMode: 'none',
-      arguments: ['File Rename', `原文：${mode === 'file' ? original : original.slice(0, 160)}\n${basis}\n\n${action}\n可修改下方建議，或按取消。`, proposed]
+      arguments: ['File Rename', `Original: ${mode === 'file' ? original : original.slice(0, 160)}\n${basis}\n\n${action}\nEdit the suggestion below, or choose Cancel.`, proposed]
     });
   } catch (_) { fail('native_dialog'); }
   const value = withoutOutputNewline(result.stdout);
@@ -219,12 +219,12 @@ async function nameSelection(input, options, actionContext, namingMode) {
   options = options || {};
   const context = actionContext || popclip.context || {};
   if (namingMode === 'content' && context.appIdentifier !== 'com.apple.finder') {
-    show('看內容命名請在 Finder 選取圖片或影片，再反白檔名中的一段。');
+    show('To name from content, select an image or video in Finder, then highlight part of its filename.');
     return;
   }
   const rawSelected = String(input.text || '');
   const selected = context.appIdentifier === 'com.apple.finder' ? rawSelected : rawSelected.trim();
-  if (!selected.trim() || selected.length > 2000) { show('請選取檔名或一段 2,000 字以內的文字。'); return; }
+  if (!selected.trim() || selected.length > 2000) { show('Select a filename or up to 2,000 characters of text.'); return; }
   try {
     const key = await resolveKey(options);
     const file = context.appIdentifier === 'com.apple.finder' ? await finderFile(selected) : null;
@@ -242,7 +242,7 @@ async function nameSelection(input, options, actionContext, namingMode) {
       } else fail('unsupported_content');
     }
     const sampledParts = video ? videoFrameParts(video) : [];
-    const basis = video ? `依影片的 ${video.frames.length} 張抽樣畫面命名` : image ? '依圖片主題與素材類型命名' : file ? '依原檔名翻譯' : '依選取文字翻譯';
+    const basis = video ? `Based on ${video.frames.length} sampled video frames` : image ? 'Based on the image subject and asset type' : file ? 'Translated from the original filename' : 'Translated from the selected text';
     // Content naming needs only pixels and frame order. Original names and
     // local media metadata stay on the Mac for validation and the preview.
     const source = video ? { source_kind: 'video' } : image ? { source_kind: 'image' } :
@@ -280,25 +280,25 @@ async function nameSelection(input, options, actionContext, namingMode) {
       await fileOp({ op: 'inspect', path: file.path, snapshot: file.snapshot, include_image: false });
       await popclip.pressKey('escape', 0, { target: 'app' });
       const renamed = await fileOp({ op: 'rename', path: file.path, snapshot: file.snapshot, filename: approved });
-      show(`已改名：${renamed.name}`);
+      show(`Renamed: ${renamed.name}`);
     } else if (context.canPaste) {
       await popclip.pasteText(approved, { restore: true });
       show(approved);
     } else {
       await popclip.copyText(approved);
-      show(`已複製：${approved}`);
+      show(`Copied: ${approved}`);
     }
   } catch (error) {
     // Neither request bodies (including images) nor API credentials enter feedback.
     if (error.localCode) show(MESSAGES[error.localCode] || MESSAGES.io_error);
-    else if (error.response && [401, 403].includes(error.response.status)) show('Gemini API Key 無效或沒有使用權限。');
-    else if (error.response && error.response.status === 429) show('AI 額度不足或查詢過於頻繁，請稍後再試。');
-    else if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') show('命名查詢逾時，這次沒有更改檔名。');
-    else show('暫時無法產生檔名，請稍後再試。');
+    else if (error.response && [401, 403].includes(error.response.status)) show('The Gemini API Key is invalid or does not have permission.');
+    else if (error.response && error.response.status === 429) show('The Gemini quota or request limit was reached. Please retry later.');
+    else if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') show('The naming request timed out. No filename was changed.');
+    else show('Could not generate a filename. Please retry later.');
   }
 }
 
 exports.actions = [
-  { identifier: 'translate', title: '譯檔名', icon: 'file:icons/translate.svg', requirements: ['text'], code: (input, options, context) => nameSelection(input, options, context, 'text') },
-  { identifier: 'image', title: '看內容命名', icon: 'file:icons/content.svg', requirements: ['text'], requiredApps: ['com.apple.finder'], code: (input, options, context) => nameSelection(input, options, context, 'content') }
+  { identifier: 'translate', title: 'Translate Filename', icon: 'file:icons/translate.svg', requirements: ['text'], code: (input, options, context) => nameSelection(input, options, context, 'text') },
+  { identifier: 'image', title: 'Name from Content', icon: 'file:icons/content.svg', requirements: ['text'], requiredApps: ['com.apple.finder'], code: (input, options, context) => nameSelection(input, options, context, 'content') }
 ];

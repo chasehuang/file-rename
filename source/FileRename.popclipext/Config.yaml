@@ -1,6 +1,6 @@
 name: File Rename
 identifier: com.chasehuang.popclip.file-rename
-description: 自選「譯檔名」或「看內容命名」，支援圖片與影片，先預覽再套用。
+description: Translate filenames or name images and videos from their content. Preview before applying.
 keywords: file rename filename rename translate gemini image video finder
 popclipVersion: 6221
 icon: file:icons/file-rename.svg
@@ -13,8 +13,8 @@ options:
     type: secret
     label: Gemini API Key
     keychain: local
-    description: "Your own Google Gemini API key, saved in this Mac's Keychain. For a .env file, leave this blank and enter its path below. / 填入自己的 Gemini Key，儲存在這台 Mac 的鑰匙圈；若使用 .env，請留白並在下方指定路徑。"
+    description: "Your own Google Gemini API key, saved in this Mac's Keychain. For a .env file, leave this blank and enter its path below."
   - identifier: envFile
     type: string
-    label: ".env path (optional) / .env 路徑（選填）"
-    description: "Used only when API Key is blank. Enter an absolute path or a path starting with ~/. No file is read if both fields are blank. / 僅金鑰留白時使用，請填完整路徑或以 ~/ 開頭的路徑；兩欄皆空白時不會讀取任何檔案。"
+    label: ".env path (optional)"
+    description: "Used only when API Key is blank. Enter an absolute path or a path starting with ~/. No file is read if both fields are blank."

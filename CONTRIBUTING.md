@@ -1,6 +1,6 @@
 # Contributing
 
-File Rename provides two PopClip actions: translate a filename/selection, or name a Finder image/video from its visible content. Keep the preview-before-apply behavior, original extension, and explicit choice of naming basis.
+File Rename provides two PopClip actions: translate a filename/selection, or name a Finder image/video from its visible content. Keep the preview-before-apply behavior, original extension, and explicit choice of naming basis. Use English for the extension UI and maintain both English and Traditional Chinese guides.
 
 ## Source layout
 
@@ -91,7 +91,13 @@ Use disposable files you created for testing. Automated checks do not prove nati
 6. Change the selected file or modify the file while its preview is open. Verify that Apply refuses stale input. Check an existing target name and a collision created after the preview; no file should be overwritten.
 7. Test selected text in another app, both in an editable field and in a read-only selection. Verify replacement or clipboard behavior matches the preview.
 
-A complete mouse-selection → preview → Apply check of this open-source build is still outstanding. Passing mocked tests or loading the module in a PopClip test harness is not equivalent to this check. Record the actual macOS, PopClip, Python and media-tool versions used when preparing a release.
+## Validation status
+
+On 2026-11-08, all 310 automated checks passed: 249 JavaScript tests and 61 Python tests. Earlier that day, a native TextEdit check succeeded with the installed v0.1.0 GitHub package: selecting `週末野餐採買清單`, opening the suggestion preview and clicking Apply replaced it with `weekend-picnic-list`.
+
+The full Finder selection → preview → Apply flows for filename translation, image naming and video naming have not yet been verified. Passing automated checks does not establish that these native UI flows work. Record the actual macOS, PopClip, Python and media-tool versions alongside future manual check results.
+
+2026-11-08 的 310 項程式測試皆通過，包含 249 項 JavaScript 與 61 項 Python 測試。當天稍早已安裝 GitHub v0.1.0 版本並在 TextEdit 實測：反白「週末野餐採買清單」、開啟建議視窗並按「套用」，文字成功換成 `weekend-picnic-list`。Finder 裡的檔名翻譯、圖片命名與影片命名，從選取到套用的完整操作仍待驗證。
 
 If adding a screenshot or demonstration, capture the real extension using self-created, non-sensitive fixtures. Do not use private files, API keys, or a simulated interface presented as a real run.
 
@@ -117,7 +123,7 @@ GEMINI_API_KEY_POP=your-own-gemini-api-key
 
 A configured path is used exclusively: an unreadable file or missing key produces an error without falling back. There is no default `.env` location. With both settings blank, the extension asks you to set up a key without reading any file. The reader loads only the file you chose and uses `GEMINI_API_KEY_POP` as the credential; it does not execute the file or transmit other variables. Neither the source nor install package includes an API key. Keep real credentials outside version control and shared archives.
 
-一般使用者直接在 Gemini API Key 填入 Key 即可，PopClip 會存進這台 Mac 的鑰匙圈。想使用 `.env` 的人，請將 Key 欄位留白，並在 .env 路徑（選填）填入檔案的完整位置，或以 `~/` 開頭的位置。外掛只讀取你指定的檔案；找不到檔案或 Key 時會顯示錯誤，不會改讀其他地方。兩個欄位都留白時，會提醒你先設定 Key。
+一般使用者直接在 Gemini API Key 填入 Key 即可，PopClip 會存進這台 Mac 的鑰匙圈。想使用 `.env` 的人，請將 Key 欄位留白，並在 .env path (optional) 填入檔案的完整位置，或以 `~/` 開頭的位置。外掛只讀取你指定的檔案；找不到檔案或 Key 時會顯示錯誤，不會改讀其他地方。兩個欄位都留白時，會提醒你先設定 Key。
 
 ## Credentials, diagnostics and code changes
 
@@ -132,11 +138,11 @@ For bug reports, include macOS and PopClip versions, the action used, file type,
 
 ## Publishing
 
-Use [GitHub Releases](https://github.com/chasehuang/file-rename/releases/latest) for the latest version and its [ready-to-install FileRename.popclipextz](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz). The first release is version 0.1.0. The repository remains private, so downloads require a GitHub account with access. The same links will work after the repository becomes public.
+Use [GitHub Releases](https://github.com/chasehuang/file-rename/releases/latest) for the latest version and its [ready-to-install FileRename.popclipextz](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz).
 
-Before making the repository public, complete the outstanding full Finder check described above and inspect both archives for private data. For future releases, build from the tagged source and attach the install package and source archive to the release. Use `FileRename.popclipextz` as the install asset name and keep the current documentation links in sync with it.
+For each release, record test coverage and any unverified flows, inspect both archives for private data, and build from the tagged source. Attach the install package and source archive to the release. Use `FileRename.popclipextz` as the install asset name and keep the documentation links in sync with it.
 
-最新版與可直接安裝的檔案放在 GitHub Releases，首版為 0.1.0。目前 repo 維持私人，只有有存取權的 GitHub 帳號能下載；之後公開 repo，下載連結不需要更換。公開前仍需完成上方記錄的 Finder 完整改名測試，並檢查下載包沒有私人資料。
+最新版與可直接安裝的檔案放在 GitHub Releases。每次發行時，記錄已完成與尚未驗證的測試項目，從該版本的原始碼打包，並檢查下載包沒有私人資料。
 
 GitHub hosting and official PopClip directory acceptance are separate. For an official submission, follow [PopClip's submission process](https://www.popclip.app/extensions/submit): provide the source package and metadata, tag a version, and complete the required agreement/review. Do not claim official signing before it occurs.
 

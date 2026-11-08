@@ -156,10 +156,38 @@ test('two static actions clearly separate text translation from Finder-only visu
   assert.equal(h.actions.length, 2);
   const descriptors = clone(h.actions);
   assert.deepEqual(descriptors, [
-    { identifier: 'translate', title: '譯檔名', icon: 'file:icons/translate.svg', requirements: ['text'] },
-    { identifier: 'image', title: '看內容命名', icon: 'file:icons/content.svg', requirements: ['text'], requiredApps: ['com.apple.finder'] }
+    { identifier: 'translate', title: 'Translate Filename', icon: 'file:icons/translate.svg', requirements: ['text'] },
+    { identifier: 'image', title: 'Name from Content', icon: 'file:icons/content.svg', requirements: ['text'], requiredApps: ['com.apple.finder'] }
   ]);
   assert.deepEqual(h.events, []);
+});
+
+test('packaged settings and native preview controls use English', () => {
+  const packagePath = path.dirname(MAIN);
+  const config = fs.readFileSync(path.join(packagePath, 'Config.yaml'), 'utf8');
+  const dialog = fs.readFileSync(path.join(packagePath, 'confirm.sh'), 'utf8');
+  for (const line of config.split('\n').filter(line => /^\s*(description|label):/.test(line))) {
+    assert.doesNotMatch(line, /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u);
+  }
+  assert.match(config, /label: "?\.env path \(optional\)/);
+  assert.match(dialog, /buttons \{"Cancel", "Apply"\} default button "Apply" cancel button "Cancel"/);
+});
+
+test('Japanese input stays intact while preview instructions and the suggested name use English', async () => {
+  const selected = '週末のピクニック.jpg';
+  const h = await makeHarness({ selected, slug: 'weekend-picnic', confirmResult: 'CANCEL' }).run();
+  assert.deepEqual(JSON.parse(apiCall(h).body.contents[0].parts[0].text), {
+    source_text: '週末のピクニック', source_kind: 'text'
+  });
+  const [title, prompt, proposed] = confirmation(h).args;
+  assert.equal(title, 'File Rename');
+  assert.equal(prompt.split('\n')[0], `Original: ${selected}`);
+  assert.match(prompt, /Translated from the selected text/);
+  assert.match(prompt, /Apply will replace the selected text/);
+  assert.match(prompt, /choose Cancel/);
+  assert.doesNotMatch(prompt.split('\n').slice(1).join('\n'), /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u);
+  assert.equal(proposed, 'weekend-picnic.jpg');
+  assert.deepEqual(h.writes(), []);
 });
 
 test('text uses Gemini JSON schema with header-only credentials, preserves .png, and confirms before paste', async () => {
@@ -182,7 +210,7 @@ test('text uses Gemini JSON schema with header-only credentials, preserves .png,
   assert.equal(content.length, 1);
   assert.equal(JSON.stringify(api.body).includes(KEY), false);
   assert.equal(confirmation(h).args[2], 'quarterly-marketing-plan.png');
-  assert.match(confirmation(h).args[1], /依選取文字翻譯/);
+  assert.match(confirmation(h).args[1], /Translated from the selected text/);
   assert.deepEqual(h.writes(), [{ type: 'paste', text: 'quarterly-marketing-plan.png', options: { restore: true } }]);
   assert.ok(h.events.findIndex(event => event.type === 'confirm') < h.events.findIndex(event => event.type === 'paste'));
   assert.equal(h.events.some(event => event.type === 'script' && event.name === 'finder.sh'), false);
@@ -191,7 +219,7 @@ test('text uses Gemini JSON schema with header-only credentials, preserves .png,
 
 test('read-only text offers copy, and copies the edited name only after approval', async () => {
   const h = await makeHarness({ context: { appIdentifier: 'com.apple.Safari', canPaste: false }, confirmResult: 'APPLY:edited-marketing-plan.png' }).run();
-  assert.match(confirmation(h).args[1], /剪貼簿/);
+  assert.match(confirmation(h).args[1], /clipboard/);
   assert.deepEqual(h.writes(), [{ type: 'copy', text: 'edited-marketing-plan.png' }]);
   assert.ok(h.events.findIndex(event => event.type === 'confirm') < h.events.findIndex(event => event.type === 'copy'));
 });
@@ -229,7 +257,7 @@ test('Finder decodes a descriptive filename, sends only its text, and renames on
   const content = apiCall(h).body.contents.find(item => item.role === 'user').parts;
   assert.deepEqual(JSON.parse(content[0].text), { source_text: '茶 #1', source_kind: 'text' });
   assert.equal(content.length, 1);
-  assert.match(confirmation(h).args[1], /依原檔名翻譯/);
+  assert.match(confirmation(h).args[1], /Translated from the original filename/);
   const textPrompt = apiCall(h).body.systemInstruction.parts.map(item => item.text).join('\n') + content[0].text;
   for (const secret of [h.file.path, '/tmp/private-parent-do-not-upload', KEY, IMAGE]) assert.equal(textPrompt.includes(secret), false);
   assert.deepEqual(h.events.find(event => event.type === 'keyPress').args, ['escape', 0, { target: 'app' }]);
@@ -242,7 +270,7 @@ test('Finder decodes a descriptive filename, sends only its text, and renames on
   assert.ok(h.events.findIndex(event => event.type === 'confirm') < h.events.findIndex(event => event.type === 'file' && event.request.op === 'rename'));
   assert.equal(has(h, 'paste'), false);
   assert.equal(has(h, 'copy'), false);
-  assert.match(h.shown(), /已改名：edited-tea-cup\.png/);
+  assert.match(h.shown(), /Renamed: edited-tea-cup\.png/);
 });
 
 test('a descriptive Chinese picnic name reaches translation intact and gets a short proposal', async () => {
@@ -259,7 +287,7 @@ test('a descriptive Chinese picnic name reaches translation intact and gets a sh
   assert.equal(h.fileOps().filter(op => op.op === 'inspect').length, 1);
   assert.equal(h.fileOps()[0].include_image, false);
   assert.equal(confirmation(h).args[2], `${slug}.webp`);
-  assert.match(confirmation(h).args[1], /依原檔名翻譯/);
+  assert.match(confirmation(h).args[1], /Translated from the original filename/);
   assert.deepEqual(h.writes(), []);
 });
 
@@ -277,7 +305,7 @@ for (const stem of [
     assert.equal(content.length, 1);
     assert.deepEqual(JSON.parse(content[0].text), { source_text: stem, source_kind: 'text' });
     assert.deepEqual(h.fileOps().filter(op => op.op === 'inspect'), [{ op: 'inspect', path: h.file.path, include_image: false }]);
-    assert.match(confirmation(h).args[1], /依原檔名翻譯/);
+    assert.match(confirmation(h).args[1], /Translated from the original filename/);
     assert.deepEqual(h.writes(), []);
   });
 }
@@ -303,7 +331,7 @@ for (const stem of [
     assert.deepEqual(JSON.parse(content[0].text), { source_kind: 'image' });
     assert.deepEqual(content[1], { inlineData: { mimeType: 'image/png', data: IMAGE.split(',')[1] } });
     assert.equal(content.length, 2);
-    assert.match(confirmation(h).args[1], /依圖片主題與素材類型命名/);
+    assert.match(confirmation(h).args[1], /Based on the image subject and asset type/);
     assert.equal(JSON.stringify(apiCall(h).body).includes(h.file.path), false);
     assert.deepEqual(h.writes(), []);
   });
@@ -329,8 +357,8 @@ test('image naming uploads only the image and source kind, keeping names, paths,
   for (const privateValue of [stem, h.file.name, localPath, metadata, ...Object.values(SNAPSHOT), KEY]) {
     assert.equal(serialized.includes(privateValue), false, `Unexpected local value in image request: ${privateValue}`);
   }
-  assert.equal(confirmation(h).args[1].split('\n')[0], `原文：${stem}.png`);
-  assert.match(confirmation(h).args[1], /依圖片主題與素材類型命名/);
+  assert.equal(confirmation(h).args[1].split('\n')[0], `Original: ${stem}.png`);
+  assert.match(confirmation(h).args[1], /Based on the image subject and asset type/);
   assert.deepEqual(h.writes(), []);
 });
 
@@ -398,8 +426,8 @@ test('video naming sends only source kind and numbered frames in order; names, p
   assert.doesNotMatch(prompt, /timestamps?|duration/i);
   assert.match(prompt, /chronological order/);
   assert.match(prompt, /do not claim unseen steps or infer speech, music or other audio/);
-  assert.equal(confirmation(h).args[1].split('\n')[0], `原文：${stem}.mp4`);
-  assert.match(confirmation(h).args[1], /依影片的 3 張抽樣畫面命名/);
+  assert.equal(confirmation(h).args[1].split('\n')[0], `Original: ${stem}.mp4`);
+  assert.match(confirmation(h).args[1], /Based on 3 sampled video frames/);
   assert.equal(confirmation(h).args[2], 'file-renaming-demo.mp4');
   assert.deepEqual(h.writes(), []);
 });
@@ -413,7 +441,7 @@ test('video naming preserves the approved extension and only renames after confi
     type: 'file', request: { op: 'rename', path: h.file.path, snapshot: SNAPSHOT, filename: 'edited-workflow-demo.mp4' }
   }]);
   assert.ok(h.events.findIndex(event => event.type === 'confirm') < h.events.findIndex(event => event.type === 'file' && event.request.op === 'rename'));
-  assert.match(h.shown(), /已改名：edited-workflow-demo\.mp4/);
+  assert.match(h.shown(), /Renamed: edited-workflow-demo\.mp4/);
 });
 
 for (const extension of ['.mp4', '.MOV', '.m4v', '.WebM', '.MKV']) {
@@ -449,7 +477,7 @@ for (const extension of ['.avi', '.mp3', '.pdf']) {
     assert.equal(h.fileOps().length, 1);
     assert.equal(has(h, 'api'), false);
     assert.equal(has(h, 'confirm'), false);
-    assert.match(h.shown(), /內容命名支援/);
+    assert.match(h.shown(), /Content naming supports/);
     assert.deepEqual(h.writes(), []);
   });
 }
@@ -482,7 +510,7 @@ for (const [label, video] of [
     assert.deepEqual(h.fileOps().map(op => op.op), ['inspect', 'video_frames']);
     assert.equal(has(h, 'api'), false);
     assert.equal(has(h, 'confirm'), false);
-    assert.match(h.shown(), /無法取得可辨識的影片畫面/);
+    assert.match(h.shown(), /Could not extract usable video frames/);
     assert.deepEqual(h.writes(), []);
     assertNoSecrets(h);
   });
@@ -497,7 +525,7 @@ test('video payload limit applies to total encoded frames before sending an API 
   } }).run();
   assert.equal(has(h, 'api'), false);
   assert.equal(has(h, 'confirm'), false);
-  assert.match(h.shown(), /影片畫面過大/);
+  assert.match(h.shown(), /video frames are too large/);
   assert.deepEqual(h.writes(), []);
 });
 
@@ -565,7 +593,7 @@ test('visual naming rejects HEIC before reading bytes or requesting AI', async (
   assert.equal(h.fileOps()[0].include_image, false);
   assert.equal(has(h, 'api'), false);
   assert.equal(has(h, 'confirm'), false);
-  assert.match(h.shown(), /內容命名支援/);
+  assert.match(h.shown(), /Content naming supports/);
   assert.deepEqual(h.writes(), []);
 });
 
@@ -575,7 +603,7 @@ test('generic text selected outside Finder never gains image access', async () =
   assert.deepEqual(JSON.parse(content[0].text), { source_text: 'Group 4', source_kind: 'text' });
   assert.equal(content.length, 1);
   assert.deepEqual(h.fileOps(), []);
-  assert.match(confirmation(h).args[1], /依選取文字翻譯/);
+  assert.match(confirmation(h).args[1], /Translated from the selected text/);
   assert.deepEqual(h.writes(), []);
 });
 
@@ -592,7 +620,7 @@ for (const appIdentifier of ['com.apple.TextEdit', 'com.apple.finder.other', '',
     assert.deepEqual(h.fileOps(), []);
     assert.equal(has(h, 'key'), false);
     assert.equal(has(h, 'script'), false);
-    assert.match(h.shown(), /看內容命名請在 Finder/);
+    assert.match(h.shown(), /select an image or video in Finder/);
   });
 }
 
@@ -607,7 +635,7 @@ for (const selected of ['different-file.png', 'Group 5', 'Group  4', ' Group 4.p
   test(`Finder rejects text that is not a literal filename substring: ${JSON.stringify(selected)}`, async () => {
     const h = await makeHarness({ context: { appIdentifier: 'com.apple.finder' }, selected }).run();
     assertNoLookupOrWrite(h);
-    assert.match(h.shown(), /選取文字不在目前的 Finder 檔名內/);
+    assert.match(h.shown(), /selected text is not part of the selected Finder filename/);
   });
 }
 
@@ -634,7 +662,7 @@ for (const [name, stem, extension, selected] of [
     }).run();
     const content = apiCall(h).body.contents[0].parts;
     assert.deepEqual(content, [{ text: JSON.stringify({ source_text: stem, source_kind: 'text' }) }]);
-    assert.equal(confirmation(h).args[1].split('\n')[0], `原文：${name}`);
+    assert.equal(confirmation(h).args[1].split('\n')[0], `Original: ${name}`);
     assert.equal(confirmation(h).args[2], `quarterly-marketing-plan${extension}`);
     assert.equal(h.events.filter(event => event.type === 'script' && event.name === 'finder.sh').length, 1);
     assert.equal(has(h, 'keyPress'), false);
@@ -653,7 +681,7 @@ test('partially selected image filename still reads the selected full image and 
   assert.deepEqual(JSON.parse(parts[0].text), { source_kind: 'image' });
   assert.equal(parts[1].inlineData.mimeType, 'image/webp');
   assert.deepEqual(h.fileOps().map(op => op.op), ['inspect', 'inspect', 'suggest']);
-  assert.equal(confirmation(h).args[1].split('\n')[0], `原文：${name}`);
+  assert.equal(confirmation(h).args[1].split('\n')[0], `Original: ${name}`);
   assert.equal(confirmation(h).args[2], 'quarterly-marketing-plan.webp');
   assert.equal(has(h, 'keyPress'), false);
   assert.deepEqual(h.writes(), []);
@@ -664,7 +692,7 @@ test('partially selected video filename still extracts frames for the selected f
   const source = JSON.parse(apiCall(h).body.contents[0].parts[0].text);
   assert.deepEqual(source, { source_kind: 'video' });
   assert.deepEqual(h.fileOps()[1], { op: 'video_frames', path: h.file.path, snapshot: SNAPSHOT });
-  assert.equal(confirmation(h).args[1].split('\n')[0], '原文：錄影 1.mp4');
+  assert.equal(confirmation(h).args[1].split('\n')[0], 'Original: 錄影 1.mp4');
   assert.equal(has(h, 'keyPress'), false);
   assert.deepEqual(h.writes(), []);
 });
@@ -676,7 +704,7 @@ test('Finder preview keeps the entire filename even when it exceeds the ordinary
     context: { appIdentifier: 'com.apple.finder' }, selected: 'cover', confirmResult: 'CANCEL',
     file: { name, stem, extension: '.webp' }
   }).run();
-  assert.equal(confirmation(h).args[1].split('\n')[0], `原文：${name}`);
+  assert.equal(confirmation(h).args[1].split('\n')[0], `Original: ${name}`);
   assert.equal(JSON.parse(apiCall(h).body.contents[0].parts[0].text).source_text, stem);
   assert.equal(has(h, 'keyPress'), false);
 });
@@ -684,7 +712,7 @@ test('Finder preview keeps the entire filename even when it exceeds the ordinary
 test('non-Finder text preview retains its 160-character display limit while API receives the entire selection', async () => {
   const selected = `course-${'b'.repeat(170)}-tail-marker`;
   const h = await makeHarness({ selected, confirmResult: 'CANCEL' }).run();
-  assert.equal(confirmation(h).args[1].split('\n')[0], `原文：${selected.slice(0, 160)}`);
+  assert.equal(confirmation(h).args[1].split('\n')[0], `Original: ${selected.slice(0, 160)}`);
   assert.equal(JSON.parse(apiCall(h).body.contents[0].parts[0].text).source_text, selected);
   assert.deepEqual(h.fileOps(), []);
 });
@@ -700,7 +728,7 @@ for (const action of ['translate', 'image']) {
     assert.equal(has(h, 'keyPress'), false);
     assert.deepEqual(h.writes(), []);
     assert.equal(h.fileOps().at(-1).op, 'suggest');
-    assert.match(h.shown(), /選取.*變更|重新選取/);
+    assert.match(h.shown(), /Finder selection changed/);
   });
 
   test(`${action} checks the original snapshot before Escape and stops if the file changed during preview`, async () => {
@@ -711,7 +739,7 @@ for (const action of ['translate', 'image']) {
     assert.deepEqual(h.fileOps().at(-1), { op: 'inspect', path: h.file.path, snapshot: SNAPSHOT, include_image: false });
     assert.equal(has(h, 'keyPress'), false);
     assert.deepEqual(h.writes(), []);
-    assert.match(h.shown(), /檔案已變更/);
+    assert.match(h.shown(), /The file changed/);
   });
 
   test(`${action} validates the approved name before rechecking Finder or sending Escape`, async () => {
@@ -722,7 +750,7 @@ for (const action of ['translate', 'image']) {
     assert.equal(h.events.filter(event => event.type === 'script' && event.name === 'finder.sh').length, 1);
     assert.equal(has(h, 'keyPress'), false);
     assert.deepEqual(h.writes(), []);
-    assert.match(h.shown(), /保留原副檔名/);
+    assert.match(h.shown(), /Keep the original file extension/);
   });
 }
 
@@ -742,12 +770,12 @@ for (const config of [
 }
 
 for (const [output, expected] of [
-  ['ERR:SELECTION\n', /請在 Finder 選一個檔案/],
-  ['ERR:PERMISSION\n', /允許 PopClip 控制 Finder/],
-  ['ERR:FINDER\n', /目前無法取得 Finder/],
-  ['OK:https://example.com/private.png\n', /目前無法取得 Finder/],
-  ['OK:file://remote-host/private.png\n', /目前無法取得 Finder/],
-  ['OK:file:///tmp/bad%ZZ.png\n', /目前無法取得 Finder/]
+  ['ERR:SELECTION\n', /Select one file in Finder/],
+  ['ERR:PERMISSION\n', /Allow PopClip to control Finder/],
+  ['ERR:FINDER\n', /Cannot read the Finder selection/],
+  ['OK:https://example.com/private.png\n', /Cannot read the Finder selection/],
+  ['OK:file://remote-host/private.png\n', /Cannot read the Finder selection/],
+  ['OK:file:///tmp/bad%ZZ.png\n', /Cannot read the Finder selection/]
 ]) {
   test(`Finder stops safely for ${output.trim()}`, async () => {
     const h = await makeHarness({ context: { appIdentifier: 'com.apple.finder' }, selected: 'Group 4', finderOutput: output }).run();
@@ -762,7 +790,7 @@ for (const slug of ['../escape', 'path/name', 'path\\name', 'Upper-Case', 'with 
     const h = await makeHarness({ slug }).run();
     assert.equal(has(h, 'confirm'), false);
     assert.deepEqual(h.writes(), []);
-    assert.match(h.shown(), /沒有取得合適的英文檔名/);
+    assert.match(h.shown(), /Could not generate a valid English filename/);
   });
 }
 
@@ -849,7 +877,7 @@ for (const dataUrl of ['data:image/png;base64,', 'data:image/svg+xml;base64,AAAA
     }).run();
     assert.equal(has(h, 'api'), false);
     assert.equal(has(h, 'confirm'), false);
-    assert.match(h.shown(), /圖片內容與副檔名不符/);
+    assert.match(h.shown(), /image format does not match its extension/);
     assert.deepEqual(h.writes(), []);
   });
 }
@@ -858,7 +886,7 @@ for (const approved of ['safe-name.jpg', 'safe-name.PNG', '../escape.png', 'nest
   test(`rejects unsafe edit or changed extension ${JSON.stringify(approved)}`, async () => {
     const h = await makeHarness({ confirmResult: `APPLY:${approved}` }).run();
     assert.deepEqual(h.writes(), []);
-    assert.match(h.shown(), /保留原副檔名|小寫英文/);
+    assert.match(h.shown(), /Keep the original file extension|lowercase English/);
   });
 }
 
@@ -883,15 +911,15 @@ for (const errorCode of ['changed', 'collision']) {
     const h = await makeHarness({ context: { appIdentifier: 'com.apple.finder' }, selected: 'Group 4', fileErrors: { suggest: errorCode } }).run();
     assert.equal(has(h, 'confirm'), false);
     assert.deepEqual(h.writes(), []);
-    assert.match(h.shown(), errorCode === 'changed' ? /檔案已變更/ : /檔名已被使用/);
+    assert.match(h.shown(), errorCode === 'changed' ? /The file changed/ : /filename is already in use/);
   });
   test(`helper ${errorCode} at rename reports failure after the approved request`, async () => {
     const h = await makeHarness({ context: { appIdentifier: 'com.apple.finder' }, selected: 'Group 4', fileErrors: { rename: errorCode } }).run();
     assert.equal(h.writes().length, 1);
     assert.deepEqual(h.writes()[0].request.snapshot, SNAPSHOT);
     assert.ok(confirmation(h));
-    assert.equal(h.shown().includes('已改名：'), false);
-    assert.match(h.shown(), errorCode === 'changed' ? /檔案已變更/ : /檔名已被使用/);
+    assert.equal(h.shown().includes('Renamed: '), false);
+    assert.match(h.shown(), errorCode === 'changed' ? /The file changed/ : /filename is already in use/);
   });
 }
 
@@ -909,7 +937,7 @@ test('missing API key performs no API or file action', async () => {
   assert.deepEqual(h.fileOps(), []);
   assert.equal(has(h, 'key'), false);
   assert.equal(h.events.some(event => event.type === 'script'), false);
-  assert.match(h.shown(), /找不到 Gemini API Key/);
+  assert.match(h.shown(), /No Gemini API Key found/);
 });
 
 test('env key lookup is a fixed script and receives no selected text', async () => {
@@ -989,7 +1017,7 @@ for (const envFile of ['', ' \t ', undefined, null]) {
     assert.equal(has(h, 'key'), false);
     assert.equal(h.events.some(event => event.type === 'script'), false);
     assert.deepEqual(h.fileOps(), []);
-    assert.match(h.shown(), /找不到 Gemini API Key/);
+    assert.match(h.shown(), /No Gemini API Key found/);
     assertNoSecrets(h);
   });
 }

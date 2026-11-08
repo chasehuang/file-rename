@@ -8,7 +8,7 @@ on run argv
   set dialogPrompt to item 2 of argv
   set proposedName to item 3 of argv
   try
-    set answer to display dialog dialogPrompt default answer proposedName with title dialogTitle buttons {"取消", "套用"} default button "套用" cancel button "取消"
+    set answer to display dialog dialogPrompt default answer proposedName with title dialogTitle buttons {"Cancel", "Apply"} default button "Apply" cancel button "Cancel"
     return "APPLY:" & (text returned of answer)
   on error number errorNumber
     if errorNumber is -128 then return "CANCEL"
