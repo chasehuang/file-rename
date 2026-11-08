@@ -4,12 +4,16 @@
 
 Rename files with PopClip by translating their current names or looking at what's in a photo or video. You can start with names in Chinese, Japanese or other languages; this version suggests English names.
 
+![File Rename previews an editable English filename in Finder, with Cancel and Apply buttons.](assets/file-rename-demo.webp)
+
+Highlight a few words → click an icon → see the suggestion → Apply. You can edit the suggested name before applying it.
+
 | Icon | What it does | Example |
 | --- | --- | --- |
 | Language — Translate Filename | Translates the filename or words you select. | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
 | Scan — Name from Content | Suggests a name based on a picture or video. | `picnic-photo.jpg` or `cooking-tutorial.mp4` |
 
-Highlight a few words → click an icon → see the suggestion → Apply. You can edit the suggested name before applying it. The scan icon is available only in Finder. The extension interface is in English, with guides in English and Traditional Chinese.
+The scan icon is available only in Finder. The extension interface is in English, with guides in English and Traditional Chinese.
 
 Suggested names use 2–4 words and aim for no more than 32 characters, keeping the main subject and asset type, such as `command-key-icon.webp`. Unnecessary color, line-style and background details are left out. Translation keeps the source meaning; it does not guess what is inside the file. You can still edit the suggestion and add more words before applying it.
 

@@ -22,7 +22,7 @@ runtime_files = (
 repository_files = (
     "README.md", "README.zh-TW.md", "CONTRIBUTING.md", "CHANGELOG.md",
     "LICENSE", ".gitignore", "popclip-directory.yaml",
-    "build.sh", ".github/workflows/test.yml",
+    "build.sh", ".github/workflows/test.yml", "assets/file-rename-demo.webp",
     "Tests/extension.test.cjs", "Tests/test_file_ops.py", "Tests/test_key_reader.py",
     "Tests/test_image_privacy.py",
 )
