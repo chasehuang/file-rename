@@ -82,7 +82,11 @@ Key 會存進這台 Mac 的鑰匙圈。如果想使用本機 `.env` 檔案，請
 
 This version still needs a full Finder check before public release. / 這一版公開前，仍需完整驗證一次 Finder 選檔到套用更名的流程。
 
-MIT License / MIT 授權。
+Extension code: MIT License. / 外掛程式：MIT 授權。
+
+Icons are from [Lucide](https://lucide.dev/) and used under the ISC license, with the stroke width adjusted. See the [full icon license](icons/LICENSE).
+
+圖示來自 [Lucide](https://lucide.dev/)，依 ISC 授權使用，並調整線條粗細。完整內容見[圖示授權全文](icons/LICENSE)。
 
 ## Translation cost / 翻譯檔名的費用
 

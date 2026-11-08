@@ -94,7 +94,9 @@ Using Gemini 3.1 Flash-Lite counts toward your Google account's allowance and ma
 
 Tool setup, development and local settings are covered in [CONTRIBUTING.md](CONTRIBUTING.md). Changes are listed in [CHANGELOG.md](CHANGELOG.md). This version still needs a complete check in Finder, from selecting a name through applying the suggestion, before a public release.
 
-Available under the [MIT License](LICENSE). This is an independent extension, not an official PopClip or Google product.
+The extension code is available under the [MIT License](LICENSE). This is an independent extension, not an official PopClip or Google product.
+
+Icons are from [Lucide](https://lucide.dev/) and used under the ISC license, with the stroke width adjusted. See the [full icon license](source/FileRename.popclipext/icons/LICENSE).
 
 ## How much does filename translation cost?
 

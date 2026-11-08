@@ -104,7 +104,9 @@ Gemini 需要連網才能取名。 讀取檔案、處理圖片、取出影片畫
 
 這份開源版本已做程式測試，正式發布前還需要在 PopClip 裡完整走過一次改名流程。
 
-開發、測試、工具安裝和進階設定請看 [CONTRIBUTING.md](CONTRIBUTING.md)，更新記錄請看 [CHANGELOG.md](CHANGELOG.md)。本專案採用 [MIT 授權](LICENSE)，不是 PopClip 或 Google 官方製作的外掛。
+開發、測試、工具安裝和進階設定請看 [CONTRIBUTING.md](CONTRIBUTING.md)，更新記錄請看 [CHANGELOG.md](CHANGELOG.md)。外掛程式採用 [MIT 授權](LICENSE)，不是 PopClip 或 Google 官方製作的外掛。
+
+圖示來自 [Lucide](https://lucide.dev/)，依 ISC 授權使用，並調整線條粗細。完整內容見[圖示授權全文](source/FileRename.popclipext/icons/LICENSE)。
 
 ## 翻譯一次大概多少錢？
 

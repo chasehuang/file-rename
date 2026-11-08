@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2 - 2026-11-08
+
+- Credit Lucide in the English and Traditional Chinese guides, link its full icon license, and distinguish it from the extension code's MIT license.
+- 在中英文說明補上 Lucide 圖示來源與完整授權連結，並區分圖示與外掛程式的授權。
+
 ## 0.1.1 - 2026-11-08
 
 - Remove bold-markup asterisks from the English and Traditional Chinese documentation so labels display as plain text.
