@@ -9,30 +9,30 @@ Rename files with PopClip by translating their current names or looking at what'
 | Language — 譯檔名 | Translates the filename or words you select. | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
 | Scan — 看內容命名 | Suggests a name based on a picture or video. | `picnic-photo.jpg` or `cooking-tutorial.mp4` |
 
-**Highlight a few words → click an icon → see the suggestion → Apply.** You can edit the suggested name before applying it. The scan icon is available only in Finder. The buttons and messages are currently in Traditional Chinese: **套用** means Apply, and **取消** means Cancel.
+Highlight a few words → click an icon → see the suggestion → Apply. You can edit the suggested name before applying it. The scan icon is available only in Finder. The buttons and messages are currently in Traditional Chinese: 套用 means Apply, and 取消 means Cancel.
 
-Suggested names use **2–4 words** and aim for **no more than 32 characters**, keeping the main subject and asset type, such as `command-key-icon.webp`. Unnecessary color, line-style and background details are left out. Translation keeps the source meaning; it does not guess what is inside the file. You can still edit the suggestion and add more words before applying it.
+Suggested names use 2–4 words and aim for no more than 32 characters, keeping the main subject and asset type, such as `command-key-icon.webp`. Unnecessary color, line-style and background details are left out. Translation keeps the source meaning; it does not guess what is inside the file. You can still edit the suggestion and add more words before applying it.
 
 ## Before you start
 
 You need:
 
-- A Mac with [PopClip](https://www.popclip.app/) **2026.8.1 or later**.
-- Your own **Gemini API Key** — a key from Google that lets this extension use its AI. Get one from [Google AI Studio](https://aistudio.google.com/app/api-keys).
-- **Python 3.9 or later**, a small tool needed to rename files in Finder.
-- **ffmpeg** if you want to name videos. You do not need it for pictures or text.
+- A Mac with [PopClip](https://www.popclip.app/) 2026.8.1 or later.
+- Your own Gemini API Key — a key from Google that lets this extension use its AI. Get one from [Google AI Studio](https://aistudio.google.com/app/api-keys).
+- Python 3.9 or later, a small tool needed to rename files in Finder.
+- ffmpeg if you want to name videos. You do not need it for pictures or text.
 
 The extension does not install these tools for you. For help, see [setup instructions](CONTRIBUTING.md#setup-tools). If you only translate highlighted words in another app and enter your key in the extension settings, you do not need either tool.
 
 ## Install
 
-[**Download FileRename.popclipextz**](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz) · [Release notes](https://github.com/chasehuang/file-rename/releases/latest)
+[Download FileRename.popclipextz](https://github.com/chasehuang/file-rename/releases/latest/download/FileRename.popclipextz) · [Release notes](https://github.com/chasehuang/file-rename/releases/latest)
 
 While this repository is private, sign in to a GitHub account with access to download it. These links will stay the same if the repository becomes public.
 
 1. Double-click `FileRename.popclipextz`.
 2. Confirm PopClip's prompt to install the unsigned extension.
-3. Open **File Rename** in PopClip's extension settings and enter your **Gemini API Key**.
+3. Open File Rename in PopClip's extension settings and enter your Gemini API Key.
 
 PopClip saves the key in your Mac's Keychain. If you prefer a local `.env` file, you must choose its path in the settings; no file is used automatically. Leaving both fields blank asks you to set up a key. See [local settings](CONTRIBUTING.md#local-credentials) for this optional method.
 
@@ -40,10 +40,10 @@ If you downloaded the source code instead, see [how to make the install file](CO
 
 ## Rename a file in Finder
 
-1. Select one file and press **Return** to edit its name.
+1. Select one file and press Return to edit its name.
 2. Use the mouse to highlight any part of the name. You can leave out the file extension, such as `.jpg`.
 3. Click the language icon to translate the name, or the scan icon to name a picture or video from its content.
-4. Read the suggested name, edit it if you like, and click **套用 (Apply)**. Click **取消 (Cancel)** to leave the name unchanged.
+4. Read the suggested name, edit it if you like, and click 套用 (Apply). Click 取消 (Cancel) to leave the name unchanged.
 
 For example, highlight just `野餐` in `週末野餐照片.jpg`. The extension still translates the whole name and can suggest `weekend-picnic-photo.jpg`. Japanese names work too: `週末のピクニック.jpg` can become `weekend-picnic.jpg`.
 
@@ -64,15 +64,15 @@ Highlight a title, phrase or filename and click the language icon. After you app
 | MP4, MOV, M4V, WebM or MKV | Name it from up to eight pictures taken from the video. Requires ffmpeg. |
 | A document or audio file | Translate its name; the contents are not read. |
 
-The extension handles **one file at a time**; it cannot rename a batch or a folder. Select the original file rather than a shortcut that points somewhere else. Animated pictures use only their first frame. Suggested names use lowercase English letters, numbers and `-`. The 32-character target excludes endings such as `.jpg`; longer names are allowed when needed, up to 64 characters. Selected text can be up to 2,000 characters.
+The extension handles one file at a time; it cannot rename a batch or a folder. Select the original file rather than a shortcut that points somewhere else. Animated pictures use only their first frame. Suggested names use lowercase English letters, numbers and `-`. The 32-character target excludes endings such as `.jpg`; longer names are allowed when needed, up to 64 characters. Selected text can be up to 2,000 characters.
 
 ## What is sent to Google
 
-Gemini needs an internet connection to create the names. Reading the file, preparing pictures, taking pictures from a video and renaming the file happen on your Mac. Clicking an icon sends the material to Google before the suggested name appears. **Cancel stops the rename; it cannot take back what has already been sent.**
+Gemini needs an internet connection to create the names. Reading the file, preparing pictures, taking pictures from a video and renaming the file happen on your Mac. Clicking an icon sends the material to Google before the suggested name appears. Cancel stops the rename; it cannot take back what has already been sent.
 
-- **Translate filename:** sends the file's current name or the words you highlighted to Gemini, which turns them into an English filename.
-- **Name a picture:** removes recorded details such as where and when the picture was taken, then lets Gemini look at it and suggest an English filename. Your original picture is unchanged.
-- **Name a video:** takes up to eight pictures from the video for Gemini to name it. The full video and its sound are not uploaded.
+- Translate filename: sends the file's current name or the words you highlighted to Gemini, which turns them into an English filename.
+- Name a picture: removes recorded details such as where and when the picture was taken, then lets Gemini look at it and suggest an English filename. Your original picture is unchanged.
+- Name a video: takes up to eight pictures from the video for Gemini to name it. The full video and its sound are not uploaded.
 
 The extension makes a separate picture on your Mac for uploading and deletes that local copy when preparation is done. If it cannot remove the extra recorded details, it stops the upload. Faces, addresses and words visible in the picture are still sent; they are not automatically covered up.
 
@@ -98,11 +98,11 @@ Available under the [MIT License](LICENSE). This is an independent extension, no
 
 ## How much does filename translation cost?
 
-**For the five examples below, the average was about US$0.000162 per translation: around US$0.16 for 1,000 filenames, or roughly 6,000 translations for US$1.**
+For the five examples below, the average was about US$0.000162 per translation: around US$0.16 for 1,000 filenames, or roughly 6,000 translations for US$1.
 
-A token is a small unit of text that Google uses to measure AI usage; it is not the same as a character or a word. The input count includes the extension's full naming instructions as well as your filename. These five requests used **580–602 tokens each in total**.
+A token is a small unit of text that Google uses to measure AI usage; it is not the same as a character or a word. The input count includes the extension's full naming instructions as well as your filename. These five requests used 580–602 tokens each in total.
 
-Measured on **2026-11-06** using Gemini 3.1 Flash-Lite and the naming instructions from before the short-name update. We translated five made-up filenames, once each, without reading or uploading their file contents. Costs use Google's standard paid prices: **US$0.25 per million input tokens** and **US$1.50 per million output tokens**. [Google's pricing](https://ai.google.dev/gemini-api/docs/pricing#gemini-3.1-flash-lite).
+Measured on 2026-11-06 using Gemini 3.1 Flash-Lite and the naming instructions from before the short-name update. We translated five made-up filenames, once each, without reading or uploading their file contents. Costs use Google's standard paid prices: US$0.25 per million input tokens and US$1.50 per million output tokens. [Google's pricing](https://ai.google.dev/gemini-api/docs/pricing#gemini-3.1-flash-lite).
 
 | Original filename | Input tokens | Output tokens | Estimated cost each | Translations for US$1 at this rate |
 | --- | ---: | ---: | ---: | ---: |
@@ -114,4 +114,4 @@ Measured on **2026-11-06** using Gemini 3.1 Flash-Lite and the naming instructio
 
 The last column is rounded down. Output also includes any tokens used by the AI to work out its answer; none of those extra tokens were reported in these five requests. The estimates do not subtract a free allowance or a discount for reused input, and exclude taxes.
 
-These are sample results for **translating filenames**, not a fixed price for every request. Longer text, different answers and changes to the naming instructions can change the cost. Naming pictures or videos uses additional image input, so this table does not estimate those actions. Prices may change; the table uses the rates checked on the date above.
+These are sample results for translating filenames, not a fixed price for every request. Longer text, different answers and changes to the naming instructions can change the cost. Naming pictures or videos uses additional image input, so this table does not estimate those actions. Prices may change; the table uses the rates checked on the date above.

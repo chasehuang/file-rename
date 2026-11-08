@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 - 2026-11-08
+
+- Remove bold-markup asterisks from the English and Traditional Chinese documentation so labels display as plain text.
+- 移除中英文說明中的粗體星號標記，讓文字直接顯示，不再露出星號。
+
 ## 0.1.0 - 2026-11-08
 
 - First File Rename release, with English and Traditional Chinese guides and a ready-to-install PopClip package.

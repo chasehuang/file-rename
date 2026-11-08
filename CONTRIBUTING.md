@@ -107,9 +107,9 @@ Regression checks should cover image orientation, alpha, dimensions, first-frame
 
 ## Local credentials
 
-The **Gemini API Key** setting uses PopClip's secret option with local macOS Keychain storage. An entered key takes priority and bypasses `.env`. See [PopClip's secret-option documentation](https://www.popclip.app/dev/options#option-types).
+The Gemini API Key setting uses PopClip's secret option with local macOS Keychain storage. An entered key takes priority and bypasses `.env`. See [PopClip's secret-option documentation](https://www.popclip.app/dev/options#option-types).
 
-For an optional local `.env` workflow, leave the key setting blank and set **.env path (optional)** to an absolute path or a path starting with `~/`. The file you choose must contain:
+For an optional local `.env` workflow, leave the key setting blank and set .env path (optional) to an absolute path or a path starting with `~/`. The file you choose must contain:
 
 ```dotenv
 GEMINI_API_KEY_POP=your-own-gemini-api-key
@@ -117,7 +117,7 @@ GEMINI_API_KEY_POP=your-own-gemini-api-key
 
 A configured path is used exclusively: an unreadable file or missing key produces an error without falling back. There is no default `.env` location. With both settings blank, the extension asks you to set up a key without reading any file. The reader loads only the file you chose and uses `GEMINI_API_KEY_POP` as the credential; it does not execute the file or transmit other variables. Neither the source nor install package includes an API key. Keep real credentials outside version control and shared archives.
 
-一般使用者直接在 **Gemini API Key** 填入 Key 即可，PopClip 會存進這台 Mac 的鑰匙圈。想使用 `.env` 的人，請將 Key 欄位留白，並在 **.env 路徑（選填）**填入檔案的完整位置，或以 `~/` 開頭的位置。外掛只讀取你指定的檔案；找不到檔案或 Key 時會顯示錯誤，不會改讀其他地方。兩個欄位都留白時，會提醒你先設定 Key。
+一般使用者直接在 Gemini API Key 填入 Key 即可，PopClip 會存進這台 Mac 的鑰匙圈。想使用 `.env` 的人，請將 Key 欄位留白，並在 .env 路徑（選填）填入檔案的完整位置，或以 `~/` 開頭的位置。外掛只讀取你指定的檔案；找不到檔案或 Key 時會顯示錯誤，不會改讀其他地方。兩個欄位都留白時，會提醒你先設定 Key。
 
 ## Credentials, diagnostics and code changes
 
