@@ -1,0 +1,31 @@
+name: Test and build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install video tools
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            brew install ffmpeg
+          fi
+      - name: Test JavaScript
+        run: node --test Tests/extension.test.cjs
+      - name: Test file operations
+        run: python3 -m unittest discover -s Tests -p 'test_*.py'
+      - name: Build extension and source archive
+        run: bash build.sh
