@@ -101,6 +101,22 @@ The full Finder selection → preview → Apply flows for filename translation, 
 
 If adding a screenshot or demonstration, capture the real extension using self-created, non-sensitive fixtures. Do not use private files, API keys, or a simulated interface presented as a real run.
 
+### Live image naming check — 2026-11-09
+
+The v0.1.4 GitHub install package was used to name three user-provided images, with one real Gemini 3.1 Flash-Lite request per image and no retries. All three returned the expected names and passed the extension's validation. Counts below exclude `.webp`; characters include hyphens.
+
+使用 GitHub v0.1.4 安裝包的程式，將三張使用者提供的圖片各送 Gemini 3.1 Flash-Lite 查詢一次，沒有重試。三張都回傳預期名稱，並通過外掛檢查。以下不計 `.webp`，字元數包含連字號。
+
+| Image topic / 圖片主題 | Actual suggestion / 實際建議 | Words / 單字 | Characters / 字元 |
+| --- | --- | --- | --- |
+| Uncertain beginnings / 不確定的起點 | `uncertain-beginnings-card.webp` | 3 | 25 |
+| Community challenges / 社群的難題 | `community-challenges-card.webp` | 3 | 25 |
+| Use AI to build a Chrome extension / 用 AI 做出 Chrome 外掛 | `ai-chrome-extension-thumbnail.webp` | 4 | 29 |
+
+The run used the released image-preparation and request code. Upload copies had their extra image information removed, and requests did not include original filenames or paths. Original files were unchanged. A test runner supplied the selected file and captured the preview suggestion before returning Cancel; native Finder/PopClip interaction and Apply were not exercised. These three target names are examples already included in the prompt, so this checks the original examples, not naming quality on unseen images.
+
+實測沿用發布版的圖片處理與查詢程式：先移除上傳副本的附加資訊，不另外傳送原檔名或路徑；原始檔案未更動。測試程式代入選取的檔案，取得預覽建議後回傳取消，因此這次沒有測試 Finder／PopClip 的實際點擊與套用操作。這三個目標名稱已經寫在提示詞中作為範例，本次只驗證這三個範例，尚未確認新圖片的命名品質。
+
 ## Media upload contract
 
 Only translation requests include `source_text`. Image requests include the image source kind and prepared pixels, without the old filename or path. Video requests include the video source kind and frames in sequence, without filenames, paths, duration or actual timestamps. Keep local preview/rename information out of content-naming requests.
