@@ -795,7 +795,7 @@ for (const slug of ['../escape', 'path/name', 'path\\name', 'Upper-Case', 'with 
 }
 
 // The API schema and local guard must agree; manual edits remain independent.
-for (const slug of ['icon', 'one-two-three-four-five', 'orange-command-symbol-thin-keycap-icon']) {
+for (const slug of ['icon', 'one-two-three-four-five-six-seven', 'learn-to-build-chrome-extensions-with-ai']) {
   test(`rejects a model suggestion outside the word budget: ${slug}`, async () => {
     const h = await makeHarness({ slug }).run();
     const schema = apiCall(h).body.generationConfig.responseJsonSchema.properties.slug;
@@ -805,7 +805,7 @@ for (const slug of ['icon', 'one-two-three-four-five', 'orange-command-symbol-th
   });
 }
 
-for (const slug of ['command-icon', 'command-key-icon', 'tokyo-family-trip-photo', 'international-architecture-exhibition']) {
+for (const slug of ['command-icon', 'command-key-icon', 'tokyo-family-trip-photo', 'international-architecture-exhibition', 'ai-chrome-extension-tutorial-thumbnail', 'build-chrome-extensions-with-ai-thumbnail']) {
   test(`accepts a short-word-budget suggestion without truncation: ${slug}`, async () => {
     const h = await makeHarness({ slug, confirmResult: 'CANCEL' }).run();
     const schema = apiCall(h).body.generationConfig.responseJsonSchema.properties.slug;
@@ -816,7 +816,7 @@ for (const slug of ['command-icon', 'command-key-icon', 'tokyo-family-trip-photo
 }
 
 test('a manually edited preview can add details beyond the AI word budget', async () => {
-  const edited = 'orange-command-key-icon-light-theme.png';
+  const edited = 'orange-command-key-icon-light-theme-preview.png';
   const h = await makeHarness({ slug: 'command-key-icon', confirmResult: `APPLY:${edited}` }).run();
   assert.deepEqual(h.writes(), [{ type: 'paste', text: edited, options: { restore: true } }]);
 });

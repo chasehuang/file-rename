@@ -15,7 +15,9 @@ Highlight a few words → click an icon → see the suggestion → Apply. You ca
 
 The scan icon is available only in Finder. The extension interface is in English, with guides in English and Traditional Chinese.
 
-Suggested names use 2–4 words and aim for no more than 32 characters, keeping the main subject and asset type, such as `command-key-icon.webp`. Unnecessary color, line-style and background details are left out. Translation keeps the source meaning; it does not guess what is inside the file. You can still edit the suggestion and add more words before applying it.
+AI suggestions prefer 2–4 English words joined by hyphens, with a maximum of 6. Words such as `card`, `thumbnail` and `mockup` count toward this limit. The target is 32 characters including hyphens, excluding endings such as `.webp`; a longer name is allowed when needed to keep the meaning clear.
+
+For text cards and tutorial thumbnails, the name keeps the main headline's meaning in natural English, followed by the image type. Body text helps clarify that headline. Examples include `uncertain-beginnings-card.webp`, `community-challenges-card.webp` and `ai-chrome-extension-thumbnail.webp`. Without a clear headline, the name follows the main visible subject and purpose. Book mockups still use the subject plus image type, such as `solopreneur-book-mockup.webp`; videos follow the action or process shown in their sampled frames. Translating an existing filename keeps its meaning. Extra color, background and style details are left out.
 
 ## Before you start
 
@@ -66,7 +68,7 @@ Highlight a title, phrase or filename and click the language icon. After you app
 | MP4, MOV, M4V, WebM or MKV | Name it from up to eight pictures taken from the video. Requires ffmpeg. |
 | A document or audio file | Translate its name; the contents are not read. |
 
-The extension handles one file at a time; it cannot rename a batch or a folder. Select the original file rather than a shortcut that points somewhere else. Animated pictures use only their first frame. Suggested names use lowercase English letters, numbers and `-`. The 32-character target excludes endings such as `.jpg`; longer names are allowed when needed, up to 64 characters. Selected text can be up to 2,000 characters.
+The extension handles one file at a time; it cannot rename a batch or a folder. Select the original file rather than a shortcut that points somewhere else. Animated pictures use only their first frame. Suggested names use lowercase English letters, numbers and `-`. The name before the file extension must stay within 64 characters. You can edit the preview yourself, including using more than 6 words; the same 64-character limit still applies. Selected text can be up to 2,000 characters.
 
 ## What is sent to Google
 

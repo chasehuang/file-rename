@@ -93,11 +93,11 @@ Use disposable files you created for testing. Automated checks do not prove nati
 
 ## Validation status
 
-On 2026-11-08, all 310 automated checks passed: 249 JavaScript tests and 61 Python tests. Earlier that day, a native TextEdit check succeeded with the installed v0.1.0 GitHub package: selecting `週末野餐採買清單`, opening the suggestion preview and clicking Apply replaced it with `weekend-picnic-list`.
+On 2026-11-08, all 312 automated checks passed: 251 JavaScript tests and 61 Python tests. Earlier that day, a native TextEdit check succeeded with the installed v0.1.0 GitHub package: selecting `週末野餐採買清單`, opening the suggestion preview and clicking Apply replaced it with `weekend-picnic-list`.
 
 The full Finder selection → preview → Apply flows for filename translation, image naming and video naming have not yet been verified. Passing automated checks does not establish that these native UI flows work. Record the actual macOS, PopClip, Python and media-tool versions alongside future manual check results.
 
-2026-11-08 的 310 項程式測試皆通過，包含 249 項 JavaScript 與 61 項 Python 測試。當天稍早已安裝 GitHub v0.1.0 版本並在 TextEdit 實測：反白「週末野餐採買清單」、開啟建議視窗並按「套用」，文字成功換成 `weekend-picnic-list`。Finder 裡的檔名翻譯、圖片命名與影片命名，從選取到套用的完整操作仍待驗證。
+2026-11-08 的 312 項程式測試皆通過，包含 251 項 JavaScript 與 61 項 Python 測試。當天稍早已安裝 GitHub v0.1.0 版本並在 TextEdit 實測：反白「週末野餐採買清單」、開啟建議視窗並按「套用」，文字成功換成 `weekend-picnic-list`。Finder 裡的檔名翻譯、圖片命名與影片命名，從選取到套用的完整操作仍待驗證。
 
 If adding a screenshot or demonstration, capture the real extension using self-created, non-sensitive fixtures. Do not use private files, API keys, or a simulated interface presented as a real run.
 

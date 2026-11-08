@@ -7,7 +7,9 @@ Rename files by translating their current names or looking at a picture or video
 | Language — Translate Filename | Translates a filename or selected words. | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
 | Scan — Name from Content | Names a picture or video from its content. | `picnic-photo.jpg`, `cooking-tutorial.mp4` |
 
-Suggestions use 2–4 words and aim for no more than 32 characters, keeping the main subject and asset type, such as `command-key-icon.webp`. Unnecessary color, line-style and background details are left out. Translation keeps the source meaning without guessing the file's contents. You can edit the suggestion and add more words before applying it.
+AI suggestions prefer 2–4 English words joined by hyphens, with a maximum of 6. Words such as `card`, `thumbnail` and `mockup` count toward this limit. The target is 32 characters including hyphens, excluding endings such as `.webp`; a longer name is allowed when needed to keep the meaning clear.
+
+For text cards and tutorial thumbnails, the name keeps the main headline's meaning in natural English, followed by the image type. Body text helps clarify that headline. Examples include `uncertain-beginnings-card.webp`, `community-challenges-card.webp` and `ai-chrome-extension-thumbnail.webp`. Without a clear headline, the name follows the main visible subject and purpose. Book mockups still use the subject plus image type, such as `solopreneur-book-mockup.webp`; videos follow the action or process shown in their sampled frames. Translating an existing filename keeps its meaning. Extra color, background and style details are left out.
 
 ## Start using it
 
@@ -28,7 +30,7 @@ In Finder:
 
 Selecting just `野餐` in `週末野餐照片.jpg` still translates the whole name, for example to `weekend-picnic-photo.jpg`. Japanese names work too: `週末のピクニック.jpg` can become `weekend-picnic.jpg`. Return alone does not bring up PopClip. The file keeps its extension. In other apps, select words and use the translation icon; the approved name replaces the selection where possible or is copied for you to paste.
 
-Pictures: PNG, JPEG and WebP, up to about 14.7 MB per original file. Animated pictures use their first frame. Videos: MP4, MOV, M4V, WebM and MKV, using up to eight pictures from the video. You can also translate the names of documents and audio files, without reading or listening to their contents. One file at a time; folders cannot be renamed. Select the original file rather than a shortcut that points elsewhere. Names use lowercase English letters, numbers and `-`. The 32-character target excludes endings such as `.jpg`; longer names are allowed when needed, up to 64 characters. Selected text can be up to 2,000 characters.
+Pictures: PNG, JPEG and WebP, up to about 14.7 MB per original file. Animated pictures use their first frame. Videos: MP4, MOV, M4V, WebM and MKV, using up to eight pictures from the video. You can also translate the names of documents and audio files, without reading or listening to their contents. One file at a time; folders cannot be renamed. Select the original file rather than a shortcut that points elsewhere. Names use lowercase English letters, numbers and `-`. The name before the file extension must stay within 64 characters. You can edit the preview yourself, including using more than 6 words; the same 64-character limit still applies. Selected text can be up to 2,000 characters.
 
 ## What is sent to Google
 
@@ -51,7 +53,9 @@ If the extension cannot remove the picture's extra recorded details, it stops th
 | 語言 — Translate Filename（翻譯檔名） | 翻譯檔名或反白文字。 | `週末野餐照片.jpg` → `weekend-picnic-photo.jpg` |
 | 掃描 — Name from Content（看內容命名） | 根據圖片或影片內容命名。 | `picnic-photo.jpg`、`cooking-tutorial.mp4` |
 
-建議名稱使用 2～4 個單字，並以 32 個字元內為目標，保留主題和素材類型，例如 `command-key-icon.webp`。不必要的顏色、線條樣式和背景細節會省略。翻譯時仍以原名稱的意思為準，不會猜測檔案內容；套用前可以自己修改、加上更多單字。
+AI 建議的名稱優先使用 2～4 個英文單字，以連字號連接，最多 6 個。`card`、`thumbnail`、`mockup` 等素材類型也算在單字數內。名稱以 32 個字元內為目標，連字號算在內，`.webp` 等結尾不計入；需要保留清楚意思時，可以超過 32 個字元。
+
+文字圖卡與教學縮圖會優先把主標題自然地翻成英文，再加上圖片類型；正文用來確認標題的意思。例如 `uncertain-beginnings-card.webp`、`community-challenges-card.webp`、`ai-chrome-extension-thumbnail.webp`。沒有清楚標題時，才依畫面主體與用途取名。書籍立體展示圖仍用主題加圖片類型，例如 `solopreneur-book-mockup.webp`；影片則依抽樣畫面呈現的動作或流程命名。翻譯現有檔名時保留原意，省略不必要的顏色、背景與樣式細節。
 
 需要 Mac、PopClip 2026.8.1 以上、自己的 Gemini API Key（Google 讓這個外掛使用 AI 的金鑰），以及更改 Finder 檔名需要的小工具 Python 3.9 以上。只有影片需要 ffmpeg。工具的安裝步驟見原始碼下載包裡的 CONTRIBUTING.md。如果只在其他 App 翻譯文字、直接在外掛設定填好 Key，就不需要這些工具。
 
@@ -70,7 +74,7 @@ Key 會存進這台 Mac 的鑰匙圈。如果想使用本機 `.env` 檔案，請
 
 例如只反白 `週末野餐照片.jpg` 裡的「野餐」，仍會翻譯完整檔名，建議為 `weekend-picnic-photo.jpg`。日文也可以，例如 `週末のピクニック.jpg` → `weekend-picnic.jpg`。只按 Return 不會叫出 PopClip，副檔名會保留。在其他 App 反白文字後，點翻譯圖示；確認後會取代選取文字，不能貼上的地方則先複製，讓你自行貼上。
 
-圖片支援 PNG、JPEG、WebP，原檔上限約 14.7 MB，動畫圖片只取第一畫面。影片支援 MP4、MOV、M4V、WebM、MKV，最多取八張畫面判斷。文件和音樂也可以翻譯檔名，目前不會閱讀文件或聽音訊。一次處理一個檔案，不能更改資料夾名稱，請直接選原始檔案。檔名使用小寫英文字母、數字和 `-`。32 個字元的目標不包含 `.jpg` 等結尾；有必要時可以超過，最多 64 個字元。一次最多反白 2,000 個字元。
+圖片支援 PNG、JPEG、WebP，原檔上限約 14.7 MB，動畫圖片只取第一畫面。影片支援 MP4、MOV、M4V、WebM、MKV，最多取八張畫面判斷。文件和音樂也可以翻譯檔名，目前不會閱讀文件或聽音訊。一次處理一個檔案，不能更改資料夾名稱，請直接選原始檔案。檔名使用小寫英文字母、數字和 `-`。不含副檔名的名稱最多 64 個字元。你可以在預覽中自行修改，也可以超過 6 個單字，但仍須在 64 個字元內。一次最多反白 2,000 個字元。
 
 ### 傳送給 Google 的內容
 

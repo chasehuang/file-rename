@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Keep the main headline's meaning when naming text cards and tutorial thumbnails, followed by the image type; use body text to clarify the headline.
+- Prefer 2–4 words for AI suggestions, allow up to 6, and aim for 32 characters while preserving meaning. Image-type words count; file extensions do not. Manual preview edits keep the existing 64-character limit without the AI word limit.
+- 文字圖卡與教學縮圖優先保留主標題的意思，再加圖片類型，正文用來確認標題意思。
+- AI 建議優先使用 2～4 個單字，最多 6 個，以 32 個字元內為目標並保留清楚意思；圖片類型算在單字數內，副檔名不計入。手動修改仍維持 64 字元上限，不受 AI 單字數限制。
+
 ## 0.1.3 - 2026-11-08
 
 - Use English throughout the extension: Translate Filename, Name from Content, settings, preview, Apply/Cancel, and status/error messages. Keep the English and Traditional Chinese guides.
